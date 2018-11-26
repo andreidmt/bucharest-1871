@@ -1,0 +1,5 @@
+.test {
+  padding: var(--distancer);
+
+  background: red;
+}

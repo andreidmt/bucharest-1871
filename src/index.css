@@ -1,0 +1,7 @@
+@import "sanitize.css";
+
+body {
+  padding: var(--distancer);
+
+  font-size: var(--font-size-normal);
+}
