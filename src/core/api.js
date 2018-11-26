@@ -4,7 +4,7 @@ import contentType from "content-type"
 import { stringify } from "qs"
 import { is, has, trim } from "@asd14/m"
 
-import RequestError from "core/request.error"
+import RequestError from "./request.error"
 
 // List of http methods used for updating resources
 const updateMethods = ["DELETE", "PATCH", "POST", "PUT"]
