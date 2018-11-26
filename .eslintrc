@@ -1,0 +1,50 @@
+{
+  "parser": "babel-eslint",
+  "root": true,
+  "extends": [
+    "@asd14/eslint-config/targets/react",
+    "@asd14/eslint-config/rules/flow"
+  ],
+  "globals": {
+    "process": true,
+    "require": true,
+    "module": true
+  },
+  "rules": {
+    // Dont require new keyword for API method calls
+    "new-cap": [ "error", {
+      "capIsNewExceptions": [ "POST", "GET", "PATCH", "DELETE" ]
+    } ],
+
+    "flowtype-errors/enforce-min-coverage": ["error", 60],
+
+    // can start with multiple uppercase letters
+    "flowtype/type-id-match": ["error", "^([A-Z]+[a-z0-9]+)+Type$"],
+
+    // disable since our pattern of naming does not match any defined case
+    "unicorn/filename-case": "off",
+  },
+  "settings": {
+    "react": {
+      "version": "16.6",
+      "flowVersion": "0.86"
+    },
+
+    // Recommended if you use eslint_d
+    "import/cache": {
+      "lifetime": 5,
+    },
+
+    // Can add a path segment here that will act like a source root, for
+    // in-project aliasing (i.e. `import MyStore from 'stores/my-store'`)
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx"],
+
+        // Can add a path segment here that will act like a source root, for
+        // in-project aliasing (i.e. `import MyStore from 'stores/my-store'`)
+        "moduleDirectory": ["node_modules", "src"]
+      }
+    }
+  }
+}

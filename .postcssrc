@@ -1,0 +1,9 @@
+{
+  "modules": true,
+  "plugins": {
+    "postcss-custom-properties": {
+      "preserve": false,
+      "importFrom": "src/core/variables.css"
+    }
+  }
+}
