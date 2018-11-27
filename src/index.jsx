@@ -1,3 +1,5 @@
+const debug = require("debug")("Bucharest1871:Index")
+
 import React from "react"
 import { render } from "react-dom"
 import { createStore, combineReducers, applyMiddleware } from "redux"

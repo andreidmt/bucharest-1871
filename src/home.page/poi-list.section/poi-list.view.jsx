@@ -3,27 +3,23 @@
 const debug = require("debug")("Bucharest1871:POIListView")
 
 import * as React from "react"
+import { map } from "@asd14/m"
 
 import css from "./poi-list.css"
 
+import type { POIModelType } from "home.page/poi-list.section/poi-list.state"
+
 type POIListViewType = {|
-  text: string,
+  pois: POIModelType[],
 |}
 
-class POIListView extends React.PureComponent<POIListViewType> {
-  /**
-   * When called, it should examine this.props and this.state and return a
-   * single React element. This element can be either a representation of a
-   * native DOM component, such as <div />, or another composite component
-   * that you've defined yourself.
-   *
-   * @return {Component}
-   */
-  render = (): React.Node => {
-    const { text } = this.props
-
-    return <div className={css.test}>{text}</div>
-  }
-}
-
-export { POIListView }
+export const POIListView = React.memo(
+  ({ pois }: POIListViewType): React.Node => (
+    <div className={css.items}>
+      {pois
+        |> map(
+          (poi: POIModelType): React.Node => <div key={poi.id}>{poi.name}</div>
+        )}
+    </div>
+  )
+)

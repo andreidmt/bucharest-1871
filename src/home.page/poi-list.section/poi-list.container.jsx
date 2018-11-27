@@ -3,13 +3,49 @@
 const debug = require("debug")("Bucharest1871:POIList")
 
 import * as React from "react"
+import { connect } from "react-redux"
+import { listSelector } from "@asd14/redux-all-is-list"
+
 import { POIListView } from "./poi-list.view"
+import { POIList } from "./poi-list.state"
+
+import type { POIModelType } from "home.page/poi-list.section/poi-list.state"
 
 type POIListType = {|
-  text: string,
+  pois: POIModelType[],
+  xHandleTodosFind: Function,
 |}
 
-class POIList extends React.Component<POIListType> {
+@connect(
+  (store): Object => {
+    const poiSelector = listSelector(store[POIList.name])
+
+    return {
+      pois: poiSelector.items(),
+    }
+  },
+  (dispatch: Function): Object => ({
+    xHandleTodosFind: POIList.find(dispatch),
+  })
+)
+class POIListContainer extends React.Component<POIListType> {
+  /**
+   * This function will be called only once in the whole life-cycle of a given
+   * component and it being called signalizes that the component and all its
+   * sub-components rendered properly.
+   *
+   * DO
+   *  - cause side effects (AJAX calls etc.)
+   *
+   * DON'T
+   *  - call this.setState as it will result in a re-render
+   */
+  componentDidMount = () => {
+    const { xHandleTodosFind } = this.props
+
+    xHandleTodosFind()
+  }
+
   /**
    * When called, it should examine this.props and this.state and return a
    * single React element. This element can be either a representation of a
@@ -19,10 +55,10 @@ class POIList extends React.Component<POIListType> {
    * @return {Component}
    */
   render = (): React.Node => {
-    const { text } = this.props
+    const { pois } = this.props
 
-    return <POIListView text="asd2" />
+    return <POIListView pois={pois} />
   }
 }
 
-export { POIList }
+export { POIListContainer }
