@@ -1,0 +1,25 @@
+{
+  "poi": [
+    {
+      "id": "cjld2cyuq0000t3rmniod1foy",
+      "name": "First years",
+      "latitude": 100,
+      "longitude": 300,
+      "dateCreate": "2018-11-26T18:11:13+00:00"
+    },
+    {
+      "id": "cjld2cyuq0001t3rmniod1foy",
+      "name": "Kinder garden",
+      "latitude": 150,
+      "longitude": 320,
+      "dateCreate": "2018-11-26T18:12:13+00:00"
+    },
+    {
+      "id": "cjld2cyuq0002t3rmniod1foy",
+      "name": "Primary School",
+      "latitude": 170,
+      "longitude": 250,
+      "dateCreate": "2018-11-26T18:14:56+00:00"
+    }
+  ]
+}
