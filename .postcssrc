@@ -4,6 +4,10 @@
     "postcss-custom-properties": {
       "preserve": false,
       "importFrom": "src/core/variables.css"
-    }
+    },
+    "postcss-preset-env": {
+      "preserve": false,
+      "stage": 2,
+    },
   }
 }
