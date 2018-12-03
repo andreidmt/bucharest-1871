@@ -93,6 +93,7 @@
     "eslint-plugin-react": "7.11.1",
     "eslint-plugin-unicorn": "6.0.1",
     "flow-bin": "0.87.0",
+    "flow-typed": "2.5.1",
     "ignore-styles": "5.0.1",
     "json-server": "0.14.0",
     "jsx-control-statements": "3.2.8",
