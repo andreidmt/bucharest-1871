@@ -7,7 +7,9 @@
 <!-- MarkdownTOC levels="1,2,3" autolink="true" indent="    " -->
 
 - [About](#about)
+- [Install](#install)
 - [Use](#use)
+- [Develop](#develop)
 - [Changelog](#changelog)
     - [0.1.0 - 26 November 2018](#010---26-november-2018)
 
@@ -23,13 +25,31 @@
 - [FlowType](https://flow.org/)
 - Good old [Tape](https://github.com/substack/tape/) and [react-test-renderer](https://reactjs.org/docs/test-renderer.html)
 
-## Use
+## Install
 
 ```bash
 git clone git@github.com:andreidcm/bucharest-1871.git && \
   cd redux-all-is-list && \
   npm run setup
+```
 
+## Use
+
+Copy and rename `.env-template` -> `.env`.
+
+```bash
+# start mock server
+npm run start:mock
+
+# start parcel dev server
+npm start
+```
+
+In order to access the map, both `parcel` and `json-server` need to be running. After, access [localhost:1234](http://localhost:1234)
+
+## Develop
+
+```bash
 # run tests (any `*.test.js`) once
 npm test
 
