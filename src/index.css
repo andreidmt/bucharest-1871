@@ -1,7 +1,8 @@
 @import "sanitize.css";
+@import "@fortawesome/fontawesome-free/css/all.css";
 
 body {
-  padding: var(--distancer);
+  color: var(--black);
 
   font-size: var(--font-size-normal);
 }
