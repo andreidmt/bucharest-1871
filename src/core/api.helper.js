@@ -1,10 +1,12 @@
-const debug = require("debug")("Leeruniek:APIService")
+// @flow
+
+const debug = require("debug")("Bucharest1871:APIHelper")
 
 import contentType from "content-type"
 import { stringify } from "qs"
 import { is, has, trim } from "@asd14/m"
 
-import RequestError from "./request.error"
+import { RequestError } from "./request.error"
 
 // List of http methods used for updating resources
 const updateMethods = ["DELETE", "PATCH", "POST", "PUT"]
@@ -23,10 +25,10 @@ const getToken = () => undefined
  *
  * @return {boolean}  True if absolute url, False otherwise
  */
-const isURL = (() => {
+const isURL = ((): Function => {
   const startsWithRegExp = /^https?:\/\//i
 
-  return input => startsWithRegExp.test(input)
+  return (source: string): boolean => startsWithRegExp.test(source)
 })()
 
 /**
@@ -50,11 +52,11 @@ const isURL = (() => {
  *                                     response codes.
  */
 const request = async (
-  method,
-  endpoint,
+  method: string,
+  endpoint: string,
   { query = null, headers = {}, body = {} } = {},
   { trailingSlash = false } = {}
-) => {
+): Promise => {
   const fullURL =
     endpoint
     |> trim("/")
@@ -127,7 +129,11 @@ const request = async (
  * @return {Promise}  Promise that resolves with the response object if code is
  *                    20*. Reject all other response codes.
  */
-export const POST = async (url, { body, headers, query } = {}, options) =>
+export const POST = (
+  url: string,
+  { body, headers, query } = {},
+  options
+): Promise =>
   request(
     "POST",
     url,
@@ -149,7 +155,7 @@ export const POST = async (url, { body, headers, query } = {}, options) =>
  * @return {Promise}  Promise that resolves with the response object if code is
  *                    20*. Reject all other response codes.
  */
-export const PATCH = async (url, { body, headers } = {}, options) =>
+export const PATCH = (url: string, { body, headers } = {}, options): Promise =>
   request(
     "PATCH",
     url,
@@ -173,7 +179,11 @@ export const PATCH = async (url, { body, headers } = {}, options) =>
  *                                 object if code is 20*. Reject all other
  *                                 response codes.
  */
-export const GET = async (url, { query, headers } = {}, options) =>
+export const GET = (
+  url: string,
+  { query, headers } = {},
+  options: {}
+): Promise =>
   request(
     "GET",
     url,
@@ -196,5 +206,8 @@ export const GET = async (url, { query, headers } = {}, options) =>
  * @return {Promise}  Promise that resolves with the response object if code is
  *                    20*. Reject all other response codes.
  */
-export const DELETE = async (url, { body, headers } = {}, options) =>
-  request("DELETE", url, { body, headers }, options)
+export const DELETE = (
+  url: string,
+  { body, headers } = {},
+  options: {}
+): Promise => request("DELETE", url, { body, headers }, options)
