@@ -21,6 +21,13 @@
     // can start with multiple uppercase letters
     "flowtype/type-id-match": ["error", "^([A-Z]+[a-z0-9]+)+Type$"],
 
+    // can start with multiple uppercase letters
+    "flowtype/require-exact-type": "off",
+
+    // conflicts with flow
+    "react/no-unused-prop-types": "off",
+    "jsx-control-statements/jsx-jcs-no-undef": "off",
+
     // disable since our pattern of naming does not match any defined case
     "unicorn/filename-case": "off",
 
