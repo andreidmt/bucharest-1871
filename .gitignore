@@ -75,5 +75,3 @@ compile/
 
 # Flow type
 flow-typed/
-
-*.jpg
