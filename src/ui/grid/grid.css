@@ -1,0 +1,21 @@
+.grid {
+  position: fixed;
+
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  background-color: transparent;
+  background-repeat: no-repeat;
+}
+
+.grid--is-panning {
+  cursor: move;
+}
+
+.grid-content {
+  position: absolute;
+
+  display: block;
+}
