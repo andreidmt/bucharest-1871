@@ -1,0 +1,25 @@
+.debug {
+  position: fixed;
+
+  right: 0;
+  bottom: 0;
+
+  text-align: right;
+}
+
+.debug-label,
+.debug-value {
+  display: inline-block;
+
+  padding: var(--distancer-small);
+
+  background: var(--white);
+}
+
+.debug-label {
+  width: 100px;
+
+  text-align: left;
+
+  font-style: italic;
+}
