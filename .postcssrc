@@ -1,13 +1,13 @@
 {
   "modules": true,
   "plugins": {
-    "postcss-custom-properties": {
-      "preserve": false,
-      "importFrom": "src/core/variables.css"
-    },
     "postcss-preset-env": {
+      "importFrom": "src/ui/variables.css",
       "preserve": false,
       "stage": 2,
+      "features": {
+        "color-functional-notation": true,
+      }
     },
   }
 }
