@@ -1,0 +1,16 @@
+:root {
+  --marker-width: 24px;
+  --marker-height: 32px;
+}
+
+.marker {
+  position: absolute;
+
+  width: var(--marker-width);
+  height: var(--marker-height);
+
+  margin-top: calc(-1 * var(--marker-height));
+  margin-left: calc(-1 * var(--marker-width) / 2);
+
+  color: var(--red);
+}
