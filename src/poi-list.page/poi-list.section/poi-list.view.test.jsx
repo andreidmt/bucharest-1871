@@ -9,8 +9,6 @@ test("POI list view", t => {
     <POIListView pois={[{ id: "1", name: "lorem" }]} />
   ).toJSON()
 
-  console.log(poiList.children)
-
   t.deepEquals(
     poiList.children,
     [{ type: "div", props: {}, children: ["lorem"] }],

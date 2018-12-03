@@ -9,11 +9,11 @@ import { listSelector } from "@asd14/redux-all-is-list"
 import { POIListView } from "./poi-list.view"
 import { POIList } from "./poi-list.state"
 
-import type { POIModelType } from "home.page/poi-list.section/poi-list.state"
+import type { POIModelType } from "poi-list.page/poi-list.section/poi-list.state"
 
 type POIListType = {|
   pois: POIModelType[],
-  xHandleTodosFind: Function,
+  xHandlePOIFind: Function,
 |}
 
 @connect(
@@ -25,7 +25,7 @@ type POIListType = {|
     }
   },
   (dispatch: Function): Object => ({
-    xHandleTodosFind: POIList.find(dispatch),
+    xHandlePOIFind: POIList.find(dispatch),
   })
 )
 class POIListContainer extends React.Component<POIListType> {
@@ -41,9 +41,9 @@ class POIListContainer extends React.Component<POIListType> {
    *  - call this.setState as it will result in a re-render
    */
   componentDidMount = () => {
-    const { xHandleTodosFind } = this.props
+    const { xHandlePOIFind } = this.props
 
-    xHandleTodosFind()
+    xHandlePOIFind()
   }
 
   /**

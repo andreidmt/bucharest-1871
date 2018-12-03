@@ -4,7 +4,8 @@ const debug = require("debug")("Bucharest1871:POIListState")
 
 import cuid from "cuid"
 import { buildList } from "@asd14/redux-all-is-list"
-import { GET, POST, PATCH, DELETE } from "../../core/api"
+
+import { GET, POST, PATCH, DELETE } from "../../core/api.helper"
 
 /**
  * Types
@@ -28,7 +29,7 @@ export type POIModelType = {|
  * @type {Function}
  */
 export const POIList = buildList({
-  name: "INDEX__POI",
+  name: "POI-LIST-PAGE__POI-LIST",
   methods: {
     create: ({ name }: POICreateType): POIModelType =>
       POST("/pois", {
@@ -38,15 +39,15 @@ export const POIList = buildList({
         },
       }),
 
-    find: (): POIModelType[] => GET("/poi"),
+    find: (): POIModelType[] => GET("/pois"),
 
     update: (id: string, { name }: POIUpdateType): POIModelType =>
-      PATCH(`/poi/${id}`, {
+      PATCH(`/pois/${id}`, {
         body: {
           name,
         },
       }),
 
-    delete: (id: string): POIModelType => DELETE(`/poi/${id}`),
+    delete: (id: string): POIModelType => DELETE(`/pois/${id}`),
   },
 })
