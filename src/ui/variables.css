@@ -1,0 +1,12 @@
+:root {
+  --radius-small: 3px;
+  --radius: 6px;
+  --distancer-small: 15px;
+  --distancer: 30px;
+  --font-size-small: 12px;
+  --font-size: 14px;
+  --white: #FFF;
+  --black: #444;
+  --green: #BCD730;
+  --red: #CB0202;
+}
