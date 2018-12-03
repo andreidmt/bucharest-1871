@@ -1,0 +1,31 @@
+:root {
+  --link-size: 64px;
+}
+
+.menu {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+}
+
+.link {
+  display: block;
+
+  width: var(--link-size);
+  height: var(--link-size);
+
+  text-align: center;
+  vertical-align: middle;
+
+  color: var(--black);
+  border: var(--link-border) solid transparent;
+  background-color: var(--white);
+
+  line-height: var(--link-size);
+}
+
+.link--is-active {
+  color: var(--black);
+  background-color: var(--green);
+}
