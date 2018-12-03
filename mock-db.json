@@ -1,25 +1,45 @@
 {
-  "poi": [
+  "pois": [
     {
       "id": "cjld2cyuq0000t3rmniod1foy",
-      "name": "First years",
-      "latitude": 100,
-      "longitude": 300,
-      "dateCreate": "2018-11-26T18:11:13+00:00"
+      "name": "Living now",
+      "latitude": 5123,
+      "longitude": 1326,
+      "dateCreated": "2018-11-26T18:11:13+00:00"
     },
     {
       "id": "cjld2cyuq0001t3rmniod1foy",
       "name": "Kinder garden",
       "latitude": 150,
       "longitude": 320,
-      "dateCreate": "2018-11-26T18:12:13+00:00"
+      "dateCreated": "2018-11-26T18:12:13+00:00"
     },
     {
       "id": "cjld2cyuq0002t3rmniod1foy",
       "name": "Primary School",
-      "latitude": 170,
-      "longitude": 250,
-      "dateCreate": "2018-11-26T18:14:56+00:00"
+      "latitude": 4692,
+      "longitude": 1079,
+      "dateCreated": "2018-11-26T18:14:56+00:00"
+    }
+  ],
+  "poi_types": [
+    {
+      "id": "cjld2cyuq0003t3rmniod1foy",
+      "name": "Education",
+      "icon": "graduation-cap",
+      "dateCreated": "2018-12-02T18:14:56+00:00"
+    },
+    {
+      "id": "cjld2cyuq0004t3rmniod1foy",
+      "name": "Health",
+      "icon": "hospital-symbol",
+      "dateCreated": "2018-12-02T18:14:56+00:00"
+    },
+    {
+      "id": "cjld2cyuq0005t3rmniod1foy",
+      "name": "Security",
+      "icon": "shield-alt",
+      "dateCreated": "2018-12-02T18:14:56+00:00"
     }
   ]
 }
