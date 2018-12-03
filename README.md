@@ -29,7 +29,7 @@
 
 ```bash
 git clone git@github.com:andreidcm/bucharest-1871.git && \
-  cd redux-all-is-list && \
+  cd bucharest-1871 && \
   npm run setup
 ```
 
