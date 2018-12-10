@@ -13,7 +13,7 @@
   "browserslist": [
     "> 1%",
     "last 2 versions",
-    "not ie <= 8"
+    "not ie <= 10"
   ],
   "author": {
     "name": "Andrei Dumitrescu",
@@ -46,6 +46,7 @@
   "dependencies": {
     "@asd14/m": "0.15.2",
     "@asd14/redux-all-is-list": "0.2.2",
+    "@babel/runtime": "7.2.0",
     "@fortawesome/fontawesome-free": "5.6.0",
     "classnames": "2.2.6",
     "content-type": "1.0.4",
@@ -67,9 +68,7 @@
     "@babel/cli": "7.2.0",
     "@babel/core": "7.2.0",
     "@babel/plugin-proposal-class-properties": "7.2.1",
-    "@babel/plugin-proposal-decorators": "7.2.0",
     "@babel/plugin-proposal-nullish-coalescing-operator": "7.2.0",
-    "@babel/plugin-proposal-pipeline-operator": "7.2.0",
     "@babel/plugin-transform-react-constant-elements": "7.2.0",
     "@babel/plugin-transform-runtime": "7.2.0",
     "@babel/preset-env": "7.2.0",
@@ -77,8 +76,8 @@
     "@babel/preset-react": "7.0.0",
     "@babel/register": "7.0.0",
     "babel-eslint": "10.0.1",
-    "enzyme": "3.7.0",
-    "enzyme-adapter-react-16": "1.7.0",
+    "enzyme": "3.8.0",
+    "enzyme-adapter-react-16": "1.7.1",
     "eslint": "5.10.0",
     "eslint-config-prettier": "3.3.0",
     "eslint-import-resolver-node": "0.3.2",
@@ -93,12 +92,12 @@
     "eslint-plugin-promise": "4.0.1",
     "eslint-plugin-react": "7.11.1",
     "eslint-plugin-unicorn": "6.0.1",
-    "flow-bin": "0.87.0",
+    "flow-bin": "0.88.0",
     "flow-typed": "2.5.1",
     "ignore-styles": "5.0.1",
     "json-server": "0.14.0",
     "markdownlint-cli": "0.13.0",
-    "nodemon": "1.18.7",
+    "nodemon": "1.18.8",
     "npm-check": "5.9.0",
     "parcel-bundler": "1.10.3",
     "postcss": "7.0.6",
