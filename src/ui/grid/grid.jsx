@@ -5,21 +5,30 @@ const debug = require("debug")("Bucharest1871:UIGrid")
 
 import * as React from "react"
 import cx from "classnames"
+import { withRouter } from "react-router-dom"
 import { throttle, map } from "@asd14/m"
 
-import { Debug } from "../debug/debug"
-import { Marker } from "../marker/marker"
+import { buildURL } from "../../core/router.helper"
+
+import { UIDebug } from "../debug/debug"
+import { UIMarker } from "../marker/marker"
 
 import css from "./grid.css"
 
-type GridPropsType = {|
-  markers: { name: string, left: number, top: number }[],
+type UIGridPropsType = {|
+  history: Object,
+  markers: {
+    id: string,
+    name: string,
+    left: number,
+    top: number,
+  }[],
   mapURL: string,
   width: number,
   height: number,
 |}
 
-type GridStateType = {|
+type UIGridStateType = {|
   screenX: number,
   screenY: number,
   startX: number,
@@ -29,14 +38,14 @@ type GridStateType = {|
   isPanning: boolean,
 |}
 
-export class Grid extends React.PureComponent<GridPropsType, GridStateType> {
+class UIGrid extends React.Component<UIGridPropsType, UIGridStateType> {
   state = {
     screenX: 0,
     screenY: 0,
     startX: 0,
     startY: 0,
-    offsetX: 0,
-    offsetY: 0,
+    offsetX: -2842,
+    offsetY: -786,
     isPanning: false,
   }
 
@@ -56,7 +65,7 @@ export class Grid extends React.PureComponent<GridPropsType, GridStateType> {
    *
    * @param {Object}  props  The properties
    */
-  constructor(props: GridPropsType) {
+  constructor(props: UIGridPropsType) {
     super(props)
 
     this.handleThrottledDragMove = throttle(this.handleDragMove, {
@@ -100,18 +109,20 @@ export class Grid extends React.PureComponent<GridPropsType, GridStateType> {
             top: offsetY,
           }}>
           {map(
-            ({ label, left, top }, index): React.Node => (
-              <Marker
+            ({ id, label, left, top }, index): React.Node => (
+              <UIMarker
                 key={`marker-${index}`}
+                id={id}
                 label={label}
                 left={left}
                 top={top}
+                onClick={this.handleMarkerClick(id)}
               />
             )
           )(markers)}
         </div>
         {process.env.NODE_ENV === "development" && (
-          <Debug
+          <UIDebug
             dump={{
               offset: { X: offsetX, Y: offsetY },
               screen: { X: screenX, Y: screenY },
@@ -129,6 +140,12 @@ export class Grid extends React.PureComponent<GridPropsType, GridStateType> {
     )
   }
 
+  handleMarkerClick = (markerId: string): Function => () => {
+    const { history } = this.props
+
+    history.push(buildURL("pois:item", { id: markerId }))
+  }
+
   /**
    * Enable panning flag and save current position of mouse
    *
@@ -142,13 +159,11 @@ export class Grid extends React.PureComponent<GridPropsType, GridStateType> {
     const currentMouseX = event.clientX
     const currentMouseY = event.clientY
 
-    this.setState(
-      ({ offsetX, offsetY }: GridStateType): {} => ({
-        startX: currentMouseX - offsetX,
-        startY: currentMouseY - offsetY,
-        isPanning: true,
-      })
-    )
+    this.setState(({ offsetX, offsetY }) => ({
+      startX: currentMouseX - offsetX,
+      startY: currentMouseY - offsetY,
+      isPanning: true,
+    }))
   }
 
   handleThrottledDragMove = null
@@ -199,3 +214,7 @@ export class Grid extends React.PureComponent<GridPropsType, GridStateType> {
     }
   }
 }
+
+const routeredUIGrid = withRouter(UIGrid)
+
+export { routeredUIGrid as UIGrid }
