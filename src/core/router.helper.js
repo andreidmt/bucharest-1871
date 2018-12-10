@@ -9,8 +9,8 @@ import { stringify } from "qs"
 import { RouteNotFoundError } from "./route-not-found.error"
 
 const ROUTES = {
-  poi: "/pois",
-  "poi:item": "/pois/:id",
+  pois: "/pois",
+  "pois:item": "/pois/:id",
   poi_types: "/poi-types",
 }
 
@@ -46,6 +46,36 @@ export const getPath = (name: string): string => {
 }
 
 /**
+ * Get the url parameters
+ *
+ * @param  {string}   url        The url
+ * @param  {string}   routeName  The route name
+ * @param  {Object}   arg3       Props
+ * @param  {boolean}  arg3.end   The end
+ *
+ * @return {Object}   Key/Value parameter object
+ */
+export const getParams = (
+  url: string,
+  routeName: string,
+  { end = false } = {}
+) => {
+  const keys = []
+  const regExp = pathToRegexp(ROUTES[routeName], keys, { end })
+  const match = regExp.exec(url)
+
+  return isEmpty(match)
+    ? {}
+    : keys.reduce(
+        (acc, key, index) => ({
+          ...acc,
+          [key.name]: match[index + 1],
+        }),
+        {}
+      )
+}
+
+/**
  * Build the URL based on route name, route params and query param
  *
  * @param  {String}  name    Route name
@@ -58,14 +88,14 @@ export const getPath = (name: string): string => {
  */
 export const buildURL = (
   name: string,
-  params: {} = {},
-  query: {} = {}
+  params?: Object,
+  query?: Object
 ): string => {
   if (isEmpty(ROUTES[name])) {
     throw new RouteNotFoundError(name)
   }
 
-  return isEmpty(query)
-    ? compiledRoutes[name](params)
-    : `${compiledRoutes[name](params)}?${stringify(query)}`
+  return query
+    ? `${compiledRoutes[name](params)}?${stringify(query)}`
+    : compiledRoutes[name](params)
 }
