@@ -6,3 +6,12 @@ body {
 
   font-size: var(--font-size-normal);
 }
+
+hr {
+  height: 1px;
+
+  margin: var(--distancer-small) 0;
+
+  border: 0;
+  background: var(--black);
+}
