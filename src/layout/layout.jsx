@@ -1,44 +1,30 @@
 // @flow
 
-const debug = require("debug")("Bucharest1871:DefaultLayout")
+const debug = require("debug")("Bucharest1871:Layout")
 
 import * as React from "react"
 import { connect } from "react-redux"
 import { withRouter } from "react-router-dom"
-import { listSelector } from "@asd14/redux-all-is-list"
 import { map } from "@asd14/m"
 
 import { buildURL } from "../core/router.helper"
 
-import { DefautLayoutPOIList } from "./default.state"
-import type { POIModelType } from "./default.state"
+import { LayoutPOIList } from "./layout.state"
+import type { LayoutPOIType } from "./layout.state"
 
-import { Grid } from "../ui/grid/grid"
-import { Sidemenu } from "../ui/sidemenu/sidemenu"
+import { UIGrid } from "../ui/grid/grid"
+import { UISidemenu } from "../ui/sidemenu/sidemenu"
 
-import css from "./default.css"
+import css from "./layout.css"
 import mapImage from "./images/map.jpg"
 
-type DefaultLayoutPropsType = {|
-  pois: POIModelType[],
+type LayoutPropsType = {|
+  pois: LayoutPOIType[],
   children: React.Node | React.Node[],
   xHandlePOIFind: Function,
 |}
 
-@withRouter
-@connect(
-  (store): Object => {
-    const poiSelector = listSelector(store[DefautLayoutPOIList.name])
-
-    return {
-      pois: poiSelector.items(),
-    }
-  },
-  (dispatch: Function): Object => ({
-    xHandlePOIFind: DefautLayoutPOIList.find(dispatch),
-  })
-)
-class DefaultLayout extends React.Component<DefaultLayoutPropsType> {
+class Layout extends React.Component<LayoutPropsType> {
   /**
    * Called only once in the whole life-cycle of a given component and it
    * being called signalizes that the component and all its sub-components
@@ -69,9 +55,10 @@ class DefaultLayout extends React.Component<DefaultLayoutPropsType> {
 
     return (
       <div className={css["layout--default"]}>
-        <Grid
+        <UIGrid
           markers={map(
-            ({ name, latitude, longitude }): {} => ({
+            ({ id, name, latitude, longitude }): {} => ({
+              id,
               label: name,
               left: latitude,
               top: longitude,
@@ -81,13 +68,13 @@ class DefaultLayout extends React.Component<DefaultLayoutPropsType> {
           width={6464}
           height={4767}
         />
-        <Sidemenu
+        <UISidemenu
           items={[
             { label: "Main page", icon: "globe", url: "/" },
             {
               label: "Points of Interest",
               icon: "map-marked",
-              url: buildURL("poi"),
+              url: buildURL("pois"),
             },
           ]}
         />
@@ -97,4 +84,19 @@ class DefaultLayout extends React.Component<DefaultLayoutPropsType> {
   }
 }
 
-export { DefaultLayout }
+const hasRouterConnect = withRouter(
+  connect(
+    (store): Object => {
+      const poiSelector = LayoutPOIList.selector(store)
+
+      return {
+        pois: poiSelector.items(),
+      }
+    },
+    (dispatch: Function): Object => ({
+      xHandlePOIFind: LayoutPOIList.find(dispatch),
+    })
+  )(Layout)
+)
+
+export { hasRouterConnect as Layout }
