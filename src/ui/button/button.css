@@ -1,0 +1,27 @@
+.button {
+  display: inline-block;
+
+  padding: var(--distancer-small);
+
+  cursor: pointer;
+}
+
+.button--is-disabled {
+  opacity: .7;
+}
+
+.button,
+.button-icon,
+.button-label {
+  color: var(--black);
+  border-radius: var(--radius-small);
+  background: var(--gray);
+}
+
+.button:hover {
+
+}
+
+.button-icon + .button-label {
+  margin-left: var(--distancer-small);
+}
