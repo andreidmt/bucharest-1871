@@ -20,11 +20,6 @@
     // class static properties
     [ "@babel/plugin-proposal-class-properties", { "loose" : true } ],
 
-    // class decorators
-    [ "@babel/plugin-proposal-decorators", {
-      "legacy": true,
-    } ],
-
     // --- Currently crashes parcel. Duplicate plugin.
     // --- https://github.com/parcel-bundler/parcel/pull/2032
     // let n = { x, y, ...z };
@@ -40,9 +35,9 @@
     //   |> capitalize
     //   |> exclaim;
     // result //=> "Hello, hello!"
-    [ "@babel/plugin-proposal-pipeline-operator", {
-      "proposal": "minimal"
-    } ],
+    // [ "@babel/plugin-proposal-pipeline-operator", {
+    //   "proposal": "minimal"
+    // } ],
   ],
 
   "env": {
