@@ -1,0 +1,40 @@
+:root {
+  --input-height: 40px;
+}
+
+.input {
+  display: flex;
+  overflow: hidden;
+
+  height: var(--input-height);
+
+  border: 1px solid var(--gray);
+  border-radius: var(--radius-small);
+}
+
+.input--is-disabled {
+  opacity: .7;
+}
+
+.input-field,
+.input-label {
+  height: var(--input-height);
+  padding: 0 var(--distancer-small);
+
+  line-height: var(--input-height);
+}
+
+.input-field {
+  flex: 1;
+
+  margin: 0;
+
+  color: var(--black);
+  border: 0;
+  background: var(--white);
+  box-shadow: none;
+}
+
+.input-label {
+  background: var(--gray);
+}
