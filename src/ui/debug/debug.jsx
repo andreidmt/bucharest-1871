@@ -7,11 +7,11 @@ import { map } from "@asd14/m"
 
 import css from "./debug.css"
 
-type DebugPropsType = {|
+type UIDebugPropsType = {|
   dump: {},
 |}
 
-export const Debug = ({ dump }: DebugPropsType): React.Node => (
+export const UIDebug = ({ dump }: UIDebugPropsType): React.Node => (
   <div className={css.debug}>
     {map(
       ([key, value]: [string, mixed]): React.Node => (
