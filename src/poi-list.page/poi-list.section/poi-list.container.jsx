@@ -1,34 +1,21 @@
 // @flow
 
-const debug = require("debug")("Bucharest1871:POIList")
+const debug = require("debug")("Bucharest1871:POIListContainer")
 
 import * as React from "react"
 import { connect } from "react-redux"
-import { listSelector } from "@asd14/redux-all-is-list"
 
 import { POIListView } from "./poi-list.view"
-import { POIList } from "./poi-list.state"
+import { LayoutPOIList } from "../../layout/layout.state"
 
-import type { POIModelType } from "poi-list.page/poi-list.section/poi-list.state"
+import type { LayoutPOIType } from "../../layout/layout.state"
 
-type POIListType = {|
-  pois: POIModelType[],
+type POIListContainerPropsType = {|
+  pois: LayoutPOIType[],
   xHandlePOIFind: Function,
 |}
 
-@connect(
-  (store): Object => {
-    const poiSelector = listSelector(store[POIList.name])
-
-    return {
-      pois: poiSelector.items(),
-    }
-  },
-  (dispatch: Function): Object => ({
-    xHandlePOIFind: POIList.find(dispatch),
-  })
-)
-class POIListContainer extends React.Component<POIListType> {
+class POIListContainer extends React.Component<POIListContainerPropsType> {
   /**
    * This function will be called only once in the whole life-cycle of a given
    * component and it being called signalizes that the component and all its
@@ -61,4 +48,17 @@ class POIListContainer extends React.Component<POIListType> {
   }
 }
 
-export { POIListContainer }
+const connectedPOIListContainer = connect(
+  (store): Object => {
+    const poiSelector = LayoutPOIList.selector(store)
+
+    return {
+      pois: poiSelector.items(),
+    }
+  },
+  (dispatch: Function): Object => ({
+    xHandlePOIFind: LayoutPOIList.find(dispatch),
+  })
+)(POIListContainer)
+
+export { connectedPOIListContainer as POIListContainer }

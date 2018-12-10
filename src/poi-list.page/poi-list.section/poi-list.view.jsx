@@ -7,17 +7,17 @@ import { map } from "@asd14/m"
 
 import css from "./poi-list.css"
 
-import type { POIModelType } from "poi-list.page/poi-list.section/poi-list.state"
+import type { LayoutPOIType } from "../../layout/layout.state"
 
 type POIListViewType = {|
-  pois: POIModelType[],
+  pois: LayoutPOIType[],
 |}
 
 export const POIListView = React.memo<POIListViewType>(
   ({ pois }): React.Node => (
     <div className={css.items}>
       {map(
-        (poi: POIModelType): React.Node => <div key={poi.id}>{poi.name}</div>
+        (poi: LayoutPOIType): React.Node => <div key={poi.id}>{poi.name}</div>
       )(pois)}
     </div>
   )
