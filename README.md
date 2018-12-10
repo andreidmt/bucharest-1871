@@ -14,7 +14,8 @@
 - [Develop](#develop)
 - [Tech dept](#tech-dept)
 - [Changelog](#changelog)
-    - [0.1.0 - 26 November 2018](#010---26-november-2018)
+    - [0.2.1 - 11 December 2018](#021---11-december-2018)
+    - [Change](#change)
 
 <!-- /MarkdownTOC -->
 
@@ -42,10 +43,10 @@ git clone git@github.com:andreidcm/bucharest-1871.git && \
 1. _Setup environment variables_  
 Copy and rename `.env-template` -> `.env`
 
-1. _Start API mock server_: server on `localhost:3000` with CRUD endpoints for POI model (uses `mock-db.json` as persistent storage)  
+1. _Start API mock server_: `localhost:3000` - CRUD endpoints for POI model (uses `mock-db.json` as persistent storage)  
 `npm run start:mock`
 
-1. _Start Parcel development server_:  server on `localhost:1234` where application can be accessed  
+1. _Start Parcel development server_: `localhost:1234`  
 `npm start`
 
 ## Develop
@@ -67,6 +68,8 @@ npm run tdd
 
 History of all changes in [CHANGELOG.md](CHANGELOG.md)
 
-### 0.1.0 - 26 November 2018
+### 0.2.1 - 11 December 2018
 
-First
+### Change
+
+- Fix all flow errors
