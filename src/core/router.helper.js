@@ -58,21 +58,21 @@ export const getPath = (name: string): string => {
 export const getParams = (
   url: string,
   routeName: string,
-  { end = false } = {}
-) => {
+  { end = false }: Object = {}
+): Object => {
   const keys = []
   const regExp = pathToRegexp(ROUTES[routeName], keys, { end })
   const match = regExp.exec(url)
 
-  return isEmpty(match)
-    ? {}
-    : keys.reduce(
-        (acc, key, index) => ({
+  return match && match.length >= 2
+    ? reduce(
+        (acc, key, index: number): Object => ({
           ...acc,
           [key.name]: match[index + 1],
         }),
         {}
-      )
+      )(keys)
+    : {}
 }
 
 /**

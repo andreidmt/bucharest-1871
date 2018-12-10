@@ -30,6 +30,7 @@ render(
     <BrowserRouter>
       <Layout>
         <Switch>
+          {/* eslint-disable react/jsx-max-depth */}
           <Route exact={true} path="/" component={HomePage} />
           <Route exact={true} path={getPath("pois")} component={POIListPage} />
           <Route path={getPath("pois:item")} component={POIItemPage} />

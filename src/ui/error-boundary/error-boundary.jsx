@@ -32,7 +32,7 @@ export class UIErrorBoundary extends React.Component<
    * @param {Object}  error      The error
    * @param {Object}  errorInfo  Error info
    */
-  componentDidCatch(error: Object, errorInfo: Object) {
+  componentDidCatch(error: Object /* , errorInfo: Object */) {
     this.setState({
       error,
     })

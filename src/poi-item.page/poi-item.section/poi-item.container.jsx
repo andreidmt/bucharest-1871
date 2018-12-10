@@ -73,7 +73,10 @@ class POIItemContainer extends React.Component<POIItemContainerPropsType> {
    *
    * @return {undefined}
    */
-  handleMarkerUpdate = (id, { name, latitude, longitude }: LayoutPOIType) => {
+  handleMarkerUpdate = (
+    id: string,
+    { name, latitude, longitude }: LayoutPOIType
+  ) => {
     const { xHandlePOIItemUpdate } = this.props
 
     xHandlePOIItemUpdate(id, { name, latitude, longitude })
@@ -81,7 +84,7 @@ class POIItemContainer extends React.Component<POIItemContainerPropsType> {
 }
 
 const hasConnect = connect(
-  (store, props): Object => {
+  (store: Object, props: POIItemContainerPropsType): Object => {
     const { id } = props
     const poiSelector = LayoutPOIList.selector(store)
 

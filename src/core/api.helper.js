@@ -4,7 +4,7 @@ const debug = require("debug")("Bucharest1871:APIHelper")
 
 import contentType from "content-type"
 import { stringify } from "qs"
-import { is, has, trim } from "@asd14/m"
+import { pipe, has, trim, startsWith } from "@asd14/m"
 
 import { RequestError } from "./request.error"
 
@@ -16,7 +16,7 @@ const updateMethods = ["DELETE", "PATCH", "POST", "PUT"]
  *
  * @return {string|void}  The token.
  */
-const getToken = () => undefined
+const getToken = (): ?string => null
 
 /**
  * Determines if absolute url
@@ -30,6 +30,16 @@ const isURL = ((): Function => {
 
   return (source: string): boolean => startsWithRegExp.test(source)
 })()
+
+type RequestDataType = {
+  body?: Object,
+  headers?: Object,
+  query?: Object,
+}
+
+type RequestOptionsType = {
+  trailingSlash: boolean,
+}
 
 /**
  * Generic `fetch` wrapper with:
@@ -54,44 +64,43 @@ const isURL = ((): Function => {
 const request = async (
   method: string,
   endpoint: string,
-  { query = null, headers = {}, body = {} } = {},
-  { trailingSlash = false } = {}
-): Promise => {
-  const fullURL =
-    endpoint
-    |> trim("/")
-    |> (url => (isURL(url) ? url : `${process.env.API_URL}/${url}`))
-    |> (url => (trailingSlash ? `${url}/` : url))
-    |> (url =>
-      is(query) === null
-        ? url
-        : `${url}?${stringify(query, {
+  { body = {}, headers = {}, query }: RequestDataType = {},
+  { trailingSlash = false }: RequestOptionsType = {}
+): Promise<any> => {
+  const API_URL = process.env.API_URL ?? ""
+  const FULL_URL = pipe(
+    trim("/"),
+    (url: string): string => (isURL(url) ? url : `${API_URL}/${url}`),
+    (url: string): string => (trailingSlash ? `${url}/` : url),
+    (url: string): string =>
+      query
+        ? `${url}?${stringify(query, {
             allowDots: true,
             encode: false,
             arrayFormat: "brackets",
             strictNullHandling: true,
-          })}`)
+          })}`
+        : url
+  )(endpoint)
 
-  /*
-   * Check if requesting an outside service or internal API
-   * Deciding if it's an URN or a URL ... :))
-   */
-  const isOutside = isURL(endpoint) && !endpoint.startsWith(process.env.API_URL)
+  // Check if requesting an outside service or internal API
+  const isOutside = isURL(endpoint) && !startsWith(API_URL)(endpoint)
 
   /*
    * Req body for PATCH, POST and PUT requests. Ignore `body` key to avoid
    * "HEAD or GET Request cannot have a body"
    */
   const _body = has(method)(updateMethods) ? { body: JSON.stringify(body) } : {}
-  const response = await fetch(fullURL, {
+  const authToken = getToken()
+  const response = await fetch(FULL_URL, {
     method,
     headers: {
       Accept: "application/json, text/html",
       "Content-Type": "application/json",
       ...headers,
-      ...(is(getToken()) && !isOutside
+      ...(authToken && !isOutside
         ? {
-            Authorization: `JWT ${getToken()}`,
+            Authorization: `JWT ${authToken}`,
           }
         : {}),
     },
@@ -129,21 +138,12 @@ const request = async (
  * @return {Promise}  Promise that resolves with the response object if code is
  *                    20*. Reject all other response codes.
  */
-export const POST = (
+export const POST = <T>(
   url: string,
-  { body, headers, query } = {},
-  options
-): Promise =>
-  request(
-    "POST",
-    url,
-    {
-      body,
-      headers,
-      query,
-    },
-    options
-  )
+  data: RequestDataType,
+  options?: RequestOptionsType
+): Promise<T> =>
+  request("POST", url, { body: data.body, headers: data.headers }, options)
 
 /**
  * PATCH
@@ -155,59 +155,44 @@ export const POST = (
  * @return {Promise}  Promise that resolves with the response object if code is
  *                    20*. Reject all other response codes.
  */
-export const PATCH = (url: string, { body, headers } = {}, options): Promise =>
-  request(
-    "PATCH",
-    url,
-    {
-      body,
-      headers,
-    },
-    options
-  )
+export const PATCH = <T>(
+  url: string,
+  data: RequestDataType,
+  options?: RequestOptionsType
+): Promise<T> =>
+  request("PATCH", url, { body: data.body, headers: data.headers }, options)
 
 /**
  * GET
  *
  * @param  {string}  url           API endpoint
- * @param  {Object}  arg2          Req
- * @param  {Object}  arg2.query    Req query params
- * @param  {Object}  arg2.headers  Req headers
+ * @param  {Object}  data          Req data
  * @param  {Object}  options       Req options
  *
  * @return {Promise}               Promise that resolves with the response
  *                                 object if code is 20*. Reject all other
  *                                 response codes.
  */
-export const GET = (
+export const GET = <T>(
   url: string,
-  { query, headers } = {},
-  options: {}
-): Promise =>
-  request(
-    "GET",
-    url,
-    {
-      query,
-      headers,
-    },
-    options
-  )
+  data?: RequestDataType = {},
+  options?: RequestOptionsType
+): Promise<T> =>
+  request("GET", url, { query: data.query, headers: data.headers }, options)
 
 /**
  * DELETE
  *
  * @param  {string}   url           API endpoint
- * @param  {Object}   arg2          Req
- * @param  {Object}   arg2.body     Req body
- * @param  {Object}   arg2.headers  Req headers
+ * @param  {Object}  data          Req data
  * @param  {Object}   options       Req options
  *
  * @return {Promise}  Promise that resolves with the response object if code is
  *                    20*. Reject all other response codes.
  */
-export const DELETE = (
+export const DELETE = <T>(
   url: string,
-  { body, headers } = {},
-  options: {}
-): Promise => request("DELETE", url, { body, headers }, options)
+  data?: { body?: Object, headers?: Object } = {},
+  options?: RequestOptionsType
+): Promise<T> =>
+  request("DELETE", url, { body: data.body, headers: data.headers }, options)

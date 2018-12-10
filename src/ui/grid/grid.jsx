@@ -28,7 +28,7 @@ type UIGridPropsType = {|
   height: number,
 |}
 
-type UIGridStateType = {|
+type UIGridStateType = {
   screenX: number,
   screenY: number,
   startX: number,
@@ -36,7 +36,7 @@ type UIGridStateType = {|
   offsetX: number,
   offsetY: number,
   isPanning: boolean,
-|}
+}
 
 class UIGrid extends React.Component<UIGridPropsType, UIGridStateType> {
   state = {
@@ -159,11 +159,13 @@ class UIGrid extends React.Component<UIGridPropsType, UIGridStateType> {
     const currentMouseX = event.clientX
     const currentMouseY = event.clientY
 
-    this.setState(({ offsetX, offsetY }) => ({
-      startX: currentMouseX - offsetX,
-      startY: currentMouseY - offsetY,
-      isPanning: true,
-    }))
+    this.setState(
+      ({ offsetX, offsetY }: UIGridStateType): Object => ({
+        startX: currentMouseX - offsetX,
+        startY: currentMouseY - offsetY,
+        isPanning: true,
+      })
+    )
   }
 
   handleThrottledDragMove = null

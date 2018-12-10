@@ -41,7 +41,10 @@ export class POIItemView extends React.PureComponent<
     fieldLongitude: this.props.longitude,
   }
 
-  static getDerivedStateFromProps = (props, state) => {
+  static getDerivedStateFromProps = (
+    props: POIItemViewPropsType,
+    state: POIItemViewStateType
+  ): ?POIItemViewStateType => {
     const { name, latitude, longitude } = props
     const { fieldName, fieldLatitude, fieldLongitude } = state
 
@@ -110,9 +113,9 @@ export class POIItemView extends React.PureComponent<
    *
    * @return {undefined}
    */
-  handleNameChange = (event: SyntheticInputEvent<HTMLDivElement>) => {
+  handleNameChange = (event: SyntheticInputEvent<HTMLInputElement>) => {
     this.setState({
-      fieldName: event.target.value,
+      fieldName: event.currentTarget.value,
     })
   }
 
@@ -123,9 +126,9 @@ export class POIItemView extends React.PureComponent<
    *
    * @return {undefined}
    */
-  handleLatitudeChange = (event: SyntheticInputEvent<HTMLDivElement>) => {
+  handleLatitudeChange = (event: SyntheticInputEvent<HTMLInputElement>) => {
     this.setState({
-      fieldLatitude: parseInt(event.target.value, 10),
+      fieldLatitude: parseInt(event.currentTarget.value, 10),
     })
   }
 
@@ -136,9 +139,9 @@ export class POIItemView extends React.PureComponent<
    *
    * @return {undefined}
    */
-  handleLongitudeChange = (event: SyntheticInputEvent<HTMLDivElement>) => {
+  handleLongitudeChange = (event: SyntheticInputEvent<HTMLInputElement>) => {
     this.setState({
-      fieldLongitude: parseInt(event.target.value, 10),
+      fieldLongitude: parseInt(event.currentTarget.value, 10),
     })
   }
 

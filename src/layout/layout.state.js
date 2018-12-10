@@ -19,12 +19,15 @@ type LayoutPOIDataType = {
 
 export type LayoutPOIType = {
   id: string,
-} & LayoutPOIDataType
+  name: string,
+  latitude: number,
+  longitude: number,
+}
 
 export const LayoutPOIList = buildList({
   name: "LAYOUT__POI-LIST",
   methods: {
-    create: (data: LayoutPOIDataType): LayoutPOIType =>
+    create: (data: LayoutPOIDataType): Promise<LayoutPOIType> =>
       POST("/pois", {
         body: {
           id: cuid(),
@@ -32,13 +35,13 @@ export const LayoutPOIList = buildList({
         },
       }),
 
-    find: (): LayoutPOIType[] => GET(`/pois`),
+    find: (): Promise<LayoutPOIType[]> => GET(`/pois`),
 
-    update: (id: string, data: LayoutPOIDataType): LayoutPOIType =>
+    update: (id: string, data: LayoutPOIDataType): Promise<LayoutPOIType> =>
       PATCH(`/pois/${id}`, {
         body: data,
       }),
 
-    delete: (id: string): LayoutPOIType => DELETE(`/pois/${id}`),
+    delete: (id: string): Promise<LayoutPOIType> => DELETE(`/pois/${id}`),
   },
 })

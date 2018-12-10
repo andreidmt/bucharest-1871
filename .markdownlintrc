@@ -121,6 +121,8 @@
      * Triggered if there are multiple headers in the document that have the
      * same text.
      */
+    "no-duplicate-header": true,
 
-    "no-duplicate-header": true
+    // MD032 - Lists should be surrounded by blank lines
+    "blanks-around-lists": false
 }

@@ -49,7 +49,7 @@ class POIListContainer extends React.Component<POIListContainerPropsType> {
 }
 
 const connectedPOIListContainer = connect(
-  (store): Object => {
+  (store: Object): Object => {
     const poiSelector = LayoutPOIList.selector(store)
 
     return {
