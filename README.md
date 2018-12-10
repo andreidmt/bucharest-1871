@@ -34,6 +34,9 @@ git clone git@github.com:andreidcm/bucharest-1871.git && \
 
 ## Use
 
+1. _Install packages and flow-typed definitions_  
+`npm run setup`
+
 1. _Setup environment variables_  
 Copy and rename `.env-template` -> `.env`
 
