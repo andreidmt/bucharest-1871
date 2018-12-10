@@ -1,16 +1,85 @@
 :root {
-  --marker-width: 24px;
-  --marker-height: 32px;
+  --marker-size: 32px;
 }
 
 .marker {
   position: absolute;
+  top: 50%;
+  left: 50%;
 
-  width: var(--marker-width);
-  height: var(--marker-height);
+  width: var(--marker-size);
+  height: var(--marker-size);
 
-  margin-top: calc(-1 * var(--marker-height));
-  margin-left: calc(-1 * var(--marker-width) / 2);
+  margin: -20px 0 0 -20px;
 
-  color: var(--red);
+  cursor: pointer;
+  transform: rotate(-45deg);
+
+  border-radius: 50% 50% 50% 0;
+  background: var(--green);
+}
+
+.marker::after {
+  position: absolute;
+
+  width: calc(var(--marker-size) / 2);
+  height: calc(var(--marker-size) / 2);
+  margin: 8px 0 0 8px;
+
+  content: "";
+
+  border-radius: 50%;
+
+  background: var(--black);
+}
+
+.shadow {
+  position: absolute;
+
+  z-index: -2;
+  top: 50%;
+  left: 50%;
+
+  width: var(--marker-size);
+  height: calc(var(--marker-size) / 2);
+  margin: 11px 0 0 calc(-1 * var(--marker-size) / 2);
+
+  transform: rotateX(55deg);
+
+  opacity: .7;
+
+  border-radius: 50%;
+  background: var(--black);
+}
+
+.shadow--is-active::after {
+  content: "";
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  position: absolute;
+  margin: -13px 0 0 -13px;
+  animation: pulsate 1s ease-out;
+  animation-iteration-count: infinite;
+  opacity: 0;
+  box-shadow: 0 0 1px 2px var(--green);
+  animation-delay: 1.1s;
+}
+
+@keyframes pulsate {
+  0% {
+    transform: scale(.1, .1);
+
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1.2, 1.2);
+
+    opacity: 0;
+  }
 }

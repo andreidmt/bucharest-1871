@@ -3,26 +3,40 @@
 const debug = require("debug")("Bucharest1871:UIMarker")
 
 import * as React from "react"
+import cx from "classnames"
 
 import css from "./marker.css"
 
-type MarkerPropsType = {|
+type UIMarkerPropsType = {|
+  id: string,
   label: string,
   left: number,
   top: number,
+  isActive?: boolean,
+  onClick: Function,
 |}
 
-export const Marker = React.memo<MarkerPropsType>(
-  ({ label, left, top }): React.Node => (
+export const UIMarker = React.memo<UIMarkerPropsType>(
+  ({ id, label, left, top, isActive = false, onClick }): React.Node => [
     <div
-      className={css.marker}
+      key={`marker-${id}`}
+      className={cx(css.marker)}
       title={label}
-      // eslint-disable-next-line
       style={{
         left,
         top,
-      }}>
-      <i className="fas fa-2x fa-map-marker" />
-    </div>
-  )
+      }}
+      onClick={onClick}
+    />,
+    <div
+      key={`shadow-${id}`}
+      className={cx(css.shadow, {
+        [css["shadow--is-active"]]: isActive,
+      })}
+      style={{
+        left,
+        top,
+      }}
+    />,
+  ]
 )
