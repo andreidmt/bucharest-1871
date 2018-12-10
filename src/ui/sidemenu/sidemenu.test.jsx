@@ -3,10 +3,10 @@ import React from "react"
 import TestRenderer from "react-test-renderer"
 
 import { MemoryRouter } from "react-router"
-import { Sidemenu } from "./sidemenu"
+import { UISidemenu } from "./sidemenu"
 
 test("UI Sidemenu", t => {
-  const emptySidemenu = TestRenderer.create(<Sidemenu items={[]} />).toJSON()
+  const emptySidemenu = TestRenderer.create(<UISidemenu items={[]} />).toJSON()
 
   t.deepEquals(
     { type: emptySidemenu.type, children: emptySidemenu.children },
@@ -20,7 +20,7 @@ test("UI Sidemenu", t => {
    */
   const sidemenu = TestRenderer.create(
     <MemoryRouter>
-      <Sidemenu
+      <UISidemenu
         items={[
           { label: "Lorem Home", icon: "globe", url: "/" },
           { label: "Lorem", icon: "globe", url: "/lorem" },

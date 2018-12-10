@@ -1,12 +1,15 @@
 import test from "tape"
 import React from "react"
 import TestRenderer from "react-test-renderer"
+import { MemoryRouter } from "react-router"
 
-import { Grid } from "./grid"
+import { UIGrid } from "./grid"
 
 test("UI Grid", t => {
   const emptyGrid = TestRenderer.create(
-    <Grid markers={[]} mapURL="" width={100} height={100} />
+    <MemoryRouter>
+      <UIGrid markers={[]} mapURL="" width={100} height={100} />
+    </MemoryRouter>
   ).toJSON()
 
   t.deepEquals(

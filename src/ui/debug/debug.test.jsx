@@ -2,11 +2,11 @@ import test from "tape"
 import React from "react"
 import TestRenderer from "react-test-renderer"
 
-import { Debug } from "./debug"
+import { UIDebug } from "./debug"
 
 test("UI Debug", t => {
   const debug = TestRenderer.create(
-    <Debug
+    <UIDebug
       dump={{
         lorem: "ipsum",
       }}

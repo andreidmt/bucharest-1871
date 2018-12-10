@@ -1,25 +1,31 @@
 import test from "tape"
 import React from "react"
+import TestRenderer from "react-test-renderer"
 
-import reactDom from "react-dom/server"
-import dom from "cheerio"
-import ReactTestUtils from "react-dom/test-utils"
-
-const render = reactDom.renderToStaticMarkup
-
-import { Marker } from "./marker"
+import { UIMarker } from "./marker"
 
 test("UI Marker", t => {
-  const $ = dom.load(render(<Marker label="test" left={100} top={100} />))
+  const marker = TestRenderer.create(
+    <UIMarker
+      id="ab06db62-6753-4e7f-8af5-16f8d72b37bb"
+      label="test"
+      left={100}
+      top={100}
+    />
+  ).toJSON()
 
-  console.log($("div").getDOMNode())
-
-  t.equals(
-    $("div").attr("title"),
-    "test",
-    "Wrapper rendered with title attribute"
+  t.deepEquals(
+    {
+      type: marker[0].type,
+      label: marker[0].props.title,
+      children: marker[0].children,
+    },
+    {
+      type: "div",
+      label: "test",
+      children: null,
+    },
+    "Render with default props"
   )
-  t.equals(marker.children[0].type, "i", "Icon rendered")
-
   t.end()
 })
