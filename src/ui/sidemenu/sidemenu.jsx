@@ -9,21 +9,21 @@ import { map } from "@asd14/m"
 
 import css from "./sidemenu.css"
 
-type SidemenuItemType = {|
+type UISidemenuItemType = {|
   label: string,
   icon: string,
   url: string,
 |}
 
-type SidemenuPropsType = {|
-  items: SidemenuItemType[],
+type UISidemenuPropsType = {|
+  items: UISidemenuItemType[],
 |}
 
-export const Sidemenu = React.memo<SidemenuPropsType>(
+export const UISidemenu = React.memo<UISidemenuPropsType>(
   ({ items }): React.Node => (
     <div className={css.menu}>
       {map(
-        ({ label, icon, url }: SidemenuItemType, index): React.Node => (
+        ({ label, icon, url }: UISidemenuItemType, index): React.Node => (
           <NavLink
             key={`sidemenu-link-${index}`}
             className={cx(css.link)}
