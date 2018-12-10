@@ -2,6 +2,8 @@
 
 > A map of Bucharest in 1871
 
+![Bucharest in 1871](docs/preview.png)
+
 ---
 
 <!-- MarkdownTOC levels="1,2,3" autolink="true" indent="    " -->

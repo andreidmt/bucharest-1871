@@ -44,8 +44,8 @@ class UIGrid extends React.Component<UIGridPropsType, UIGridStateType> {
     screenY: 0,
     startX: 0,
     startY: 0,
-    offsetX: -2842,
-    offsetY: -786,
+    offsetX: -3700,
+    offsetY: -800,
     isPanning: false,
   }
 
