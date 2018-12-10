@@ -1,42 +1,42 @@
 {
   "pois": [
     {
-      "id": "cjld2cyuq0000t3rmniod1foy",
-      "name": "Living now",
-      "latitude": 5123,
+      "id": "d05c9ecd-586c-4709-b29d-3cbece6ff1fd",
+      "name": "Living now2",
+      "latitude": 5126,
       "longitude": 1326,
       "dateCreated": "2018-11-26T18:11:13+00:00"
     },
     {
-      "id": "cjld2cyuq0001t3rmniod1foy",
+      "id": "8a09e05c-0a73-4b15-86fc-f8f9132f1b6c",
       "name": "Kinder garden",
       "latitude": 150,
       "longitude": 320,
       "dateCreated": "2018-11-26T18:12:13+00:00"
     },
     {
-      "id": "cjld2cyuq0002t3rmniod1foy",
+      "id": "7574eaff-840c-478d-8d8c-f06b82b6ccc3",
       "name": "Primary School",
-      "latitude": 4692,
+      "latitude": 4700,
       "longitude": 1079,
       "dateCreated": "2018-11-26T18:14:56+00:00"
     }
   ],
   "poi_types": [
     {
-      "id": "cjld2cyuq0003t3rmniod1foy",
+      "id": "2c4208f3-3545-4a8e-b6ba-7b3d835d5a46",
       "name": "Education",
       "icon": "graduation-cap",
       "dateCreated": "2018-12-02T18:14:56+00:00"
     },
     {
-      "id": "cjld2cyuq0004t3rmniod1foy",
+      "id": "749766dd-9f4e-4f9e-992a-6b26824d4c2f",
       "name": "Health",
       "icon": "hospital-symbol",
       "dateCreated": "2018-12-02T18:14:56+00:00"
     },
     {
-      "id": "cjld2cyuq0005t3rmniod1foy",
+      "id": "cd9f0251-6f99-4172-aca7-b8303d35bf7a",
       "name": "Security",
       "icon": "shield-alt",
       "dateCreated": "2018-12-02T18:14:56+00:00"
