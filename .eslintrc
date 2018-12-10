@@ -16,27 +16,12 @@
       "capIsNewExceptions": [ "POST", "GET", "PATCH", "DELETE" ]
     } ],
 
-    "flowtype-errors/enforce-min-coverage": ["error", 60],
-
-    // can start with multiple uppercase letters
-    "flowtype/type-id-match": ["error", "^([A-Z]+[a-z0-9]+)+Type$"],
-
-    // can start with multiple uppercase letters
-    "flowtype/require-exact-type": "off",
-
-    // conflicts with flow
-    "react/no-unused-prop-types": "off",
-    "jsx-control-statements/jsx-jcs-no-undef": "off",
-
-    // disable since our pattern of naming does not match any defined case
-    "unicorn/filename-case": "off",
-
-    "unicorn/no-fn-reference-in-iterator": "off",
+    "react/destructuring-assignment": "warn",
   },
   "settings": {
     "react": {
       "version": "16.6",
-      "flowVersion": "0.86"
+      "flowVersion": "0.87"
     },
 
     // Recommended if you use eslint_d
