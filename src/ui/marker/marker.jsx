@@ -8,7 +8,6 @@ import cx from "classnames"
 import css from "./marker.css"
 
 type UIMarkerPropsType = {|
-  id: string,
   label: string,
   left: number,
   top: number,
@@ -17,26 +16,19 @@ type UIMarkerPropsType = {|
 |}
 
 export const UIMarker = React.memo<UIMarkerPropsType>(
-  ({ id, label, left, top, isActive = false, onClick }): React.Node => [
+  ({ label, left, top, isActive = false, onClick }): React.Node => (
     <div
-      key={`marker-${id}`}
-      className={cx(css.marker)}
+      className={cx(css.marker, {
+        [css["marker--is-active"]]: isActive,
+      })}
       title={label}
       style={{
         left,
         top,
       }}
-      onClick={onClick}
-    />,
-    <div
-      key={`shadow-${id}`}
-      className={cx(css.shadow, {
-        [css["shadow--is-active"]]: isActive,
-      })}
-      style={{
-        left,
-        top,
-      }}
-    />,
-  ]
+      onClick={onClick}>
+      <div className={css.pointer} />
+      <div className={css.shadow} />
+    </div>
+  )
 )
