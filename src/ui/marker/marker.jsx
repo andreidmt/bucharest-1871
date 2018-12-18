@@ -12,7 +12,7 @@ type UIMarkerPropsType = {|
   left: number,
   top: number,
   isActive?: boolean,
-  onClick: Function,
+  onClick?: Function,
 |}
 
 export const UIMarker = React.memo<UIMarkerPropsType>(
