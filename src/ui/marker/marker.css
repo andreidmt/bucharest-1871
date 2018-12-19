@@ -14,15 +14,35 @@
   margin-left: calc(-1 * var(--marker-size) / 2);
 }
 
+.label {
+  position: absolute;
+  top: 5px;
+  left: calc(var(--marker-size) + 5px);
+
+  max-width: 200px;
+  padding: var(--distancer-small);
+
+  white-space: nowrap;
+
+  border-radius: var(--radius-small);
+  background-color: var(--color-white);
+
+  font-size: var(--font-size-small);
+}
+
+.marker--is-active {
+  z-index: var(--z-index-higher);
+}
+
 .pointer {
   height: var(--marker-size);
 
   cursor: pointer;
   transform: rotate(-45deg);
 
-  border: 2px solid var(--white);
+  border: 2px solid var(--color-white);
   border-radius: 50% 50% 50% 0;
-  background: var(--white);
+  background: var(--color-white);
 }
 
 .pointer::after {
@@ -37,7 +57,7 @@
   content: "";
 
   border-radius: 50%;
-  background: var(--black);
+  background: var(--color-black);
 }
 
 .shadow {
@@ -53,15 +73,15 @@
   opacity: .7;
 
   border-radius: 50%;
-  background: var(--black);
+  background: var(--color-black);
 }
 
 .marker--is-active .pointer {
-  background: var(--black);
+  background: var(--color-black);
 }
 
 .marker--is-active .pointer::after {
-  background: var(--white);
+  background: var(--color-white);
 }
 
 .marker--is-active .shadow {
@@ -72,7 +92,7 @@
   opacity: 0;
 
   border-radius: 50%;
-  background: var(--white);
+  background: var(--color-white);
 }
 
 @keyframes pulsate {

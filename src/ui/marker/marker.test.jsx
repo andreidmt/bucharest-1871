@@ -16,14 +16,14 @@ test("UI Marker", t => {
 
   t.deepEquals(
     {
-      type: marker[0].type,
-      label: marker[0].props.title,
-      children: marker[0].children,
+      type: marker.type,
+      label: marker.props.title,
+      childrenCount: marker.children.length,
     },
     {
       type: "div",
       label: "test",
-      children: null,
+      childrenCount: 2,
     },
     "Render with default props"
   )
