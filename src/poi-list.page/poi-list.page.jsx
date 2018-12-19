@@ -5,6 +5,7 @@ const debug = require("debug")("Bucharest1871:POIListPage")
 import * as React from "react"
 
 import { POIListContainer } from "./poi-list.section/poi-list.container"
+import { SettingsContainer } from "./settings.section/settings.container"
 
 class POIListPage extends React.Component<{}> {
   /**
@@ -15,7 +16,13 @@ class POIListPage extends React.Component<{}> {
    *
    * @return {Component}
    */
-  render = (): React.Node => <POIListContainer />
+  render = (): React.Node => (
+    <div>
+      <POIListContainer />
+      <br />
+      <SettingsContainer />
+    </div>
+  )
 }
 
 export { POIListPage }
