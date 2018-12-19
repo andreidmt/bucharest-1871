@@ -17,6 +17,11 @@
     // is spread out over multiple files.
     "@babel/plugin-transform-runtime",
 
+    // class decorators
+    [ "@babel/plugin-proposal-decorators", {
+      "legacy": true,
+    } ],
+
     // class static properties
     [ "@babel/plugin-proposal-class-properties", { "loose" : true } ],
 
