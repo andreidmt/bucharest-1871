@@ -4,10 +4,8 @@
     "postcss-preset-env": {
       "importFrom": "src/ui/variables.css",
       "preserve": false,
-      "stage": 2,
-      "features": {
-        "color-functional-notation": true,
-      }
+      "stage": 2
     },
+    "postcss-color-function": {},
   }
 }
