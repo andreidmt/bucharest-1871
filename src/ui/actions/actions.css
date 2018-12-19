@@ -1,0 +1,6 @@
+.actions::after {
+  display: table;
+  clear: both;
+
+  content: "";
+}
