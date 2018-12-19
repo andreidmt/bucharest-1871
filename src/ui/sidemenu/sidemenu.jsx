@@ -15,13 +15,14 @@ type UISidemenuItemType = {|
   url: string,
 |}
 
-type UISidemenuPropsType = {|
+type PropsType = {|
+  className?: string,
   items: UISidemenuItemType[],
 |}
 
-export const UISidemenu = React.memo<UISidemenuPropsType>(
-  ({ items }): React.Node => (
-    <div className={css.menu}>
+export const UISidemenu = React.memo<PropsType>(
+  ({ className = "", items }): React.Node => (
+    <div className={cx(css.menu, className)}>
       {map(
         ({ label, icon, url }: UISidemenuItemType, index): React.Node => (
           <NavLink

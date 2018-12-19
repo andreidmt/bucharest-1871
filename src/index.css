@@ -2,7 +2,7 @@
 @import "@fortawesome/fontawesome-free/css/all.css";
 
 body {
-  color: var(--black);
+  color: var(--color-black);
 
   font-size: var(--font-size-normal);
 }
@@ -10,8 +10,19 @@ body {
 hr {
   height: 1px;
 
-  margin: var(--distancer-small) 0;
+  margin: calc(var(--distancer) / 2) 0;
 
   border: 0;
-  background: var(--black);
+  background: var(--color-black);
+}
+
+h1 {
+  margin-top: 0;
+
+  margin-bottom: calc(var(--distancer) / 2);
+  padding-bottom: calc(var(--distancer) / 2);
+
+  border-bottom: 1px solid var(--color-black);
+
+  font-size: var(--font-size-big);
 }

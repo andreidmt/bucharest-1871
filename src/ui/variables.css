@@ -1,13 +1,30 @@
+/* stylelint-disable custom-property-empty-line-before */
 :root {
   --radius-small: 3px;
   --radius: 6px;
-  --distancer-small: 15px;
+  --distancer-small: 5px;
   --distancer: 30px;
+  --line-height: 1.42857143;
+
   --font-size-small: 12px;
   --font-size: 14px;
-  --white: #FFF;
-  --black: #444;
-  --gray: #DDD;
-  --green: #BCD730;
-  --red: #CB0202;
+  --font-size-big: 18px;
+
+  --color-primary: #BCD730;
+  --color-danger: #CB0202;
+
+  --color-white: #FFF;
+  --color-gray: #DDD;
+  --color-black: #444;
+  --color-green: #BCD730;
+  --color-red: #CB0202;
+  --color-purple: #9C27B0;
+  --color-orange: #FF9800;
+
+  --z-index-highest: 300;
+  --z-index-higher: 200;
+  --z-index-high: 100;
+  --z-index-normal: 1;
+  --z-index-low: -100;
+  --z-index-lower: -200;
 }

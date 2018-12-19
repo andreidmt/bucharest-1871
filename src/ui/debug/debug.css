@@ -13,7 +13,7 @@
 
   padding: var(--distancer-small);
 
-  background: var(--white);
+  background: var(--color-white);
 }
 
 .debug-label {
