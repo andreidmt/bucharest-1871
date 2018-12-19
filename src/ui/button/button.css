@@ -1,7 +1,7 @@
 .button {
   display: inline-block;
 
-  padding: var(--distancer-small);
+  padding: calc(var(--distancer) / 2);
 
   cursor: pointer;
 }
@@ -13,15 +13,36 @@
 .button,
 .button-icon,
 .button-label {
-  color: var(--black);
   border-radius: var(--radius-small);
-  background: var(--gray);
-}
-
-.button:hover {
-
 }
 
 .button-icon + .button-label {
   margin-left: var(--distancer-small);
+}
+
+.button--type-default {
+  color: var(--color-black);
+  background: var(--color-gray);
+}
+
+.button--type-default:hover {
+  background-color: color(var(--color-gray) shade(20%));
+}
+
+.button--type-primary {
+  color: var(--color-black);
+  background: var(--color-primary);
+}
+
+.button--type-primary:hover {
+  background-color: color(var(--color-primary) shade(20%));
+}
+
+.button--type-danger {
+  color: var(--color-white);
+  background: var(--color-danger);
+}
+
+.button--type-danger:hover {
+  background-color: color(var(--color-danger) shade(20%));
 }

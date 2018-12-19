@@ -7,17 +7,26 @@ import cx from "classnames"
 
 import css from "./button.css"
 
-type UIButtonType = {|
+type PropsType = {|
+  className?: string,
   label?: string,
   icon?: string,
+  type?: "primary" | "danger" | "default",
   isDisabled?: boolean,
   onClick?: Function,
 |}
 
-export const UIButton = React.memo<UIButtonType>(
-  ({ label, icon, isDisabled = false, onClick }): React.Node => (
+export const UIButton = React.memo<PropsType>(
+  ({
+    className = "",
+    label,
+    icon,
+    type = "default",
+    isDisabled = false,
+    onClick,
+  }): React.Node => (
     <div
-      className={cx(css.button, {
+      className={cx(className, css.button, css[`button--type-${type}`], {
         [css["button--is-disabled"]]: isDisabled,
       })}
       onMouseDown={isDisabled ? null : onClick}>
