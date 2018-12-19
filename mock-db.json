@@ -1,25 +1,37 @@
 {
   "pois": [
     {
-      "id": "d05c9ecd-586c-4709-b29d-3cbece6ff1fd",
-      "name": "Living now2",
+      "id": "cjptqhcuh00001w5kzur9tstl",
+      "name": "Living now",
       "latitude": 5126,
       "longitude": 1326,
       "dateCreated": "2018-11-26T18:11:13+00:00"
     },
     {
-      "id": "8a09e05c-0a73-4b15-86fc-f8f9132f1b6c",
-      "name": "Kinder garden",
-      "latitude": 150,
-      "longitude": 320,
-      "dateCreated": "2018-11-26T18:12:13+00:00"
-    },
-    {
-      "id": "7574eaff-840c-478d-8d8c-f06b82b6ccc3",
+      "id": "cjptpj7rm00001w5kq6o9ooo0",
       "name": "Primary School",
-      "latitude": 4700,
+      "latitude": 4701,
       "longitude": 1079,
       "dateCreated": "2018-11-26T18:14:56+00:00"
+    },
+    {
+      "id": "cjputdbcu00011w5kzukunbme",
+      "latitude": 4841,
+      "longitude": 1409,
+      "name": "Lorem Upsum Dolor Sit amet"
+    },
+    {
+      "id": "cjputvrzx00021w5k1rsh51ft",
+      "latitude": 4662,
+      "longitude": 1489,
+      "name": ""
+    }
+  ],
+  "settings": [
+    {
+      "id": "cjptqpuf100001w6kpm2oas63",
+      "name": "grid__show-label",
+      "value": true
     }
   ],
   "poi_types": [
