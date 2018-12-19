@@ -16,6 +16,8 @@
       "capIsNewExceptions": [ "POST", "GET", "PATCH", "DELETE" ]
     } ],
 
+    "promise/catch-or-return": "warn",
+    "import/exports-last": "off",
     "react/destructuring-assignment": "warn",
   },
   "settings": {
