@@ -2,39 +2,62 @@
   --input-height: 40px;
 }
 
-.input {
+.input--is-disabled {
+  opacity: .7;
+}
+
+/**
+ * Text
+ */
+
+.input--type-text {
   display: flex;
   overflow: hidden;
 
   height: var(--input-height);
 
-  border: 1px solid var(--gray);
+  border: 1px solid var(--color-gray);
   border-radius: var(--radius-small);
 }
 
-.input--is-disabled {
-  opacity: .7;
-}
-
-.input-field,
-.input-label {
+.input--type-text .input-field,
+.input--type-text .input-label {
   height: var(--input-height);
   padding: 0 var(--distancer-small);
 
   line-height: var(--input-height);
 }
 
-.input-field {
+.input--type-text .input-field {
   flex: 1;
 
   margin: 0;
 
-  color: var(--black);
+  color: var(--color-black);
   border: 0;
-  background: var(--white);
+  background: var(--color-white);
   box-shadow: none;
 }
 
-.input-label {
-  background: var(--gray);
+.input--type-text .input-label {
+  background: var(--color-gray);
+}
+
+/**
+ * Checkbox
+ */
+
+.input--type-checkbox .input-label {
+  display: block;
+
+  height: var(--input-height);
+
+  line-height: var(--input-height);
+}
+
+.input--type-checkbox .input-field {
+  display: inline-block;
+
+  margin-top: 2px;
+  margin-right: var(--distancer-small);
 }
