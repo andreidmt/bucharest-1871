@@ -45,3 +45,33 @@ export const LayoutPOIList = buildList({
     delete: (id: string): Promise<LayoutPOIType> => DELETE(`/pois/${id}`),
   },
 })
+
+/**
+ * User settings
+ */
+
+type LayoutSettingsDataType = {
+  name: string,
+  value: number | string | boolean,
+}
+
+export type LayoutSettingsType = {
+  id: string,
+  name: string,
+  value: number | string | boolean,
+}
+
+export const LayoutSettingsList = buildList({
+  name: "LAYOUT__SETTINGS",
+  methods: {
+    find: (): Promise<LayoutSettingsType[]> => GET(`/settings`),
+
+    update: (
+      id: string,
+      data: LayoutSettingsDataType
+    ): Promise<LayoutSettingsType> =>
+      PATCH(`/settings/${id}`, {
+        body: data,
+      }),
+  },
+})

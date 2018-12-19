@@ -1,8 +1,18 @@
+.hud {
+  z-index: var(--z-index-higher);
+}
+
+.under {
+  z-index: var(--z-index-normal);
+}
+
 .content {
   position: fixed;
 
   top: 0;
   left: 64px;
 
-  background-color: var(--white);
+  padding: var(--distancer);
+
+  background-color: var(--color-white);
 }
