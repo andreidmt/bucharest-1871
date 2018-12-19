@@ -1,3 +1,18 @@
 .items {
-  padding: var(--distancer);
+  width: 340px;
+}
+
+.item {
+  padding: var(--distancer-small);
+}
+
+.item::after {
+  display: table;
+  clear: both;
+
+  content: "";
+}
+
+.edit-link {
+  float: right;
 }

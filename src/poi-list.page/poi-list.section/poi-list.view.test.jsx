@@ -1,18 +1,25 @@
 import test from "tape"
 import React from "react"
 import TestRenderer from "react-test-renderer"
+import { MemoryRouter } from "react-router"
+import { Link } from "react-router-dom"
 
 import { POIListView } from "./poi-list.view"
 
 test("POI list view", t => {
-  const poiList = TestRenderer.create(
-    <POIListView pois={[{ id: "1", name: "lorem" }]} />
-  ).toJSON()
+  const testRenderer = TestRenderer.create(
+    <MemoryRouter>
+      <POIListView
+        pois={[{ id: "1", name: "lorem" }, { id: "2", name: "lorem" }]}
+      />
+    </MemoryRouter>
+  )
+  const testInstance = testRenderer.root
 
-  t.deepEquals(
-    poiList.children,
-    [{ type: "div", props: {}, children: ["lorem"] }],
-    "Text is rendered as direct child"
+  t.equals(
+    testInstance.findAllByType(Link).length,
+    2,
+    "Render one link for each poi"
   )
 
   t.end()

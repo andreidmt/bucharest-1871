@@ -10,29 +10,14 @@ import { LayoutPOIList } from "../../layout/layout.state"
 
 import type { LayoutPOIType } from "../../layout/layout.state"
 
-type POIListContainerPropsType = {|
+type PropsType = {|
   pois: LayoutPOIType[],
+  isLoading: boolean,
+  isLoaded: boolean,
   xHandlePOIFind: Function,
 |}
 
-class POIListContainer extends React.Component<POIListContainerPropsType> {
-  /**
-   * This function will be called only once in the whole life-cycle of a given
-   * component and it being called signalizes that the component and all its
-   * sub-components rendered properly.
-   *
-   * DO
-   *  - cause side effects (AJAX calls etc.)
-   *
-   * DON'T
-   *  - call this.setState as it will result in a re-render
-   */
-  componentDidMount = () => {
-    const { xHandlePOIFind } = this.props
-
-    xHandlePOIFind()
-  }
-
+class POIListContainer extends React.Component<PropsType> {
   /**
    * When called, it should examine this.props and this.state and return a
    * single React element. This element can be either a representation of a
@@ -42,23 +27,26 @@ class POIListContainer extends React.Component<POIListContainerPropsType> {
    * @return {Component}
    */
   render = (): React.Node => {
-    const { pois } = this.props
+    const { pois, isLoading, isLoaded } = this.props
 
-    return <POIListView pois={pois} />
+    return !isLoaded || isLoading ? (
+      "Loading POIs data ..."
+    ) : (
+      <POIListView pois={pois} />
+    )
   }
 }
 
-const connectedPOIListContainer = connect(
+const hasConnect = connect(
   (store: Object): Object => {
     const poiSelector = LayoutPOIList.selector(store)
 
     return {
       pois: poiSelector.items(),
+      isLoading: poiSelector.isLoading(),
+      isLoaded: poiSelector.isLoaded(),
     }
-  },
-  (dispatch: Function): Object => ({
-    xHandlePOIFind: LayoutPOIList.find(dispatch),
-  })
+  }
 )(POIListContainer)
 
-export { connectedPOIListContainer as POIListContainer }
+export { hasConnect as POIListContainer }
