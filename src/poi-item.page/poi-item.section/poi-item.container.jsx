@@ -4,30 +4,36 @@ const debug = require("debug")("Bucharest1871:POIItemContainer")
 
 import * as React from "react"
 import { connect } from "react-redux"
+import { withRouter } from "react-router-dom"
+
+import { buildURL } from "../../core/router.helper"
 
 import { POIItemView } from "./poi-item.view"
 import { LayoutPOIList } from "../../layout/layout.state"
-
 import type { LayoutPOIType } from "../../layout/layout.state"
 
-type POIItemContainerPropsType = {|
+type PropType = {|
+  history: Object,
   id: string,
   name?: string,
   latitude?: number,
   longitude?: number,
   isUpdating?: boolean,
+  isDeleting?: boolean,
   isLoaded: boolean,
   isLoading: boolean,
   xHandlePOIItemFind: Function,
   xHandlePOIItemUpdate: Function,
+  xHandlePOIItemDelete: Function,
 |}
 
-class POIItemContainer extends React.Component<POIItemContainerPropsType> {
+class POIItemContainer extends React.Component<PropType> {
   static defaultProps = {
     name: null,
     latitude: null,
     longitude: null,
     isUpdating: false,
+    isDeleting: false,
   }
 
   /**
@@ -45,6 +51,7 @@ class POIItemContainer extends React.Component<POIItemContainerPropsType> {
       latitude,
       longitude,
       isUpdating,
+      isDeleting,
       isLoading,
       isLoaded,
     } = this.props
@@ -58,7 +65,9 @@ class POIItemContainer extends React.Component<POIItemContainerPropsType> {
         latitude={latitude}
         longitude={longitude}
         isUpdating={isUpdating}
+        isDeleting={isDeleting}
         onSave={this.handleMarkerUpdate}
+        onDelete={this.handleMarkerDelete}
       />
     )
   }
@@ -81,30 +90,57 @@ class POIItemContainer extends React.Component<POIItemContainerPropsType> {
 
     xHandlePOIItemUpdate(id, { name, latitude, longitude })
   }
+
+  /**
+   * Delete POI from API
+   *
+   * @param  {string}  id  POI id
+   *
+   * @return {undefined}
+   */
+  handleMarkerDelete = (id: string): Promise<LayoutPOIType> => {
+    const { history, xHandlePOIItemDelete } = this.props
+
+    return xHandlePOIItemDelete(id).then(
+      (deletedItem: LayoutPOIType): LayoutPOIType => {
+        history.push(buildURL("pois"))
+
+        return deletedItem
+      }
+    )
+  }
 }
 
-const hasConnect = connect(
-  (store: Object, props: POIItemContainerPropsType): Object => {
-    const { id } = props
-    const poiSelector = LayoutPOIList.selector(store)
+const mapStateToProps = (store: Object, props: PropType): Object => {
+  const { id } = props
+  const poiSelector = LayoutPOIList.selector(store)
 
-    const { name, latitude, longitude } = poiSelector.isLoaded()
-      ? poiSelector.byId(id)
-      : {}
+  const { name, latitude, longitude } = poiSelector.isLoaded()
+    ? poiSelector.byId(id) ?? {}
+    : {}
 
-    return {
-      name,
-      latitude,
-      longitude,
-      isUpdating: poiSelector.isUpdating(id),
-      isLoading: poiSelector.isLoading(id),
-      isLoaded: poiSelector.isLoaded(id),
-    }
-  },
-  (dispatch: Function): Object => ({
-    xHandlePOIItemFind: LayoutPOIList.find(dispatch),
-    xHandlePOIItemUpdate: LayoutPOIList.update(dispatch),
-  })
-)(POIItemContainer)
+  return {
+    name,
+    latitude,
+    longitude,
+    isUpdating: poiSelector.isUpdating(id),
+    isDeleting: poiSelector.isDeleting(id),
+    isLoading: poiSelector.isLoading(id),
+    isLoaded: poiSelector.isLoaded(id),
+  }
+}
 
-export { hasConnect as POIItemContainer }
+const mapDispatchToProps = (dispatch: Function): Object => ({
+  xHandlePOIItemFind: LayoutPOIList.find(dispatch),
+  xHandlePOIItemUpdate: LayoutPOIList.update(dispatch),
+  xHandlePOIItemDelete: LayoutPOIList.delete(dispatch),
+})
+
+const hasRouterConnect = withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(POIItemContainer)
+)
+
+export { hasRouterConnect as POIItemContainer }

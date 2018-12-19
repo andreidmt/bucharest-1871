@@ -6,45 +6,48 @@ import * as React from "react"
 
 import { UIInput } from "../../ui/input/input"
 import { UIButton } from "../../ui/button/button"
+import { UIActions } from "../../ui/actions/actions"
 
 import css from "./poi-item.css"
 
-type POIItemViewPropsType = {|
+type PropsType = {|
   id: string,
   name?: string,
   latitude?: number,
   longitude?: number,
   isUpdating?: boolean,
+  isDeleting?: boolean,
   onSave: Function,
+  onDelete: Function,
 |}
 
-type POIItemViewStateType = {
+type StateType = {
+  hasDeleteConfirm?: boolean,
   fieldName?: string,
   fieldLatitude?: number,
   fieldLongitude?: number,
 }
 
-export class POIItemView extends React.PureComponent<
-  POIItemViewPropsType,
-  POIItemViewStateType
-> {
+export class POIItemView extends React.PureComponent<PropsType, StateType> {
   static defaultProps = {
     name: undefined,
     latitude: undefined,
     longitude: undefined,
     isUpdating: false,
+    isDeleting: false,
   }
 
   state = {
+    hasDeleteConfirm: false,
     fieldName: this.props.name,
     fieldLatitude: this.props.latitude,
     fieldLongitude: this.props.longitude,
   }
 
   static getDerivedStateFromProps = (
-    props: POIItemViewPropsType,
-    state: POIItemViewStateType
-  ): ?POIItemViewStateType => {
+    props: PropsType,
+    state: StateType
+  ): ?StateType => {
     const { name, latitude, longitude } = props
     const { fieldName, fieldLatitude, fieldLongitude } = state
 
@@ -72,11 +75,19 @@ export class POIItemView extends React.PureComponent<
    * @return {Component}
    */
   render = (): React.Node => {
-    const { id, isUpdating } = this.props
-    const { fieldName, fieldLatitude, fieldLongitude } = this.state
+    const { id, isUpdating, isDeleting } = this.props
+    const {
+      fieldName,
+      fieldLatitude,
+      fieldLongitude,
+      hasDeleteConfirm,
+    } = this.state
+
+    const isDisabled = isUpdating || isDeleting
 
     return (
       <div className={css.form}>
+        <h1>Edit POI</h1>
         <UIInput label="ID" value={id} isDisabled={true} />
         <br />
         <UIInput
@@ -96,12 +107,41 @@ export class POIItemView extends React.PureComponent<
           value={fieldLongitude}
           onChange={this.handleLongitudeChange}
         />
-        <hr />
-        <UIButton
-          icon={isUpdating ? "fa-spinner fa-spin" : "fa-save"}
-          isDisabled={isUpdating}
-          onClick={this.handlePOIFormSave}
-        />
+        <UIActions>
+          <UIButton
+            icon={isUpdating ? "fa-spinner fa-spin" : "fa-save"}
+            type="primary"
+            isDisabled={isDisabled}
+            onClick={this.handlePOIFormSave}
+          />
+          {hasDeleteConfirm ? (
+            [
+              <UIButton
+                key={`forn-cancel-delete-${id}`}
+                className={css["form-action--right"]}
+                icon="fa-times"
+                isDisabled={isDisabled}
+                onClick={this.handlePOIFormDeleteCancel}
+              />,
+              <UIButton
+                key={`forn-delete-${id}`}
+                className={css["form-action--right"]}
+                icon={isDeleting ? "fa-spinner fa-spin" : "fa-trash"}
+                type="danger"
+                isDisabled={isDisabled}
+                onClick={this.handlePOIFormDelete}
+              />,
+            ]
+          ) : (
+            <UIButton
+              className={css["form-action--right"]}
+              icon={isDeleting ? "fa-spinner fa-spin" : "fa-trash"}
+              type="danger"
+              isDisabled={isDisabled}
+              onClick={this.handlePOIFormDeleteConfirm}
+            />
+          )}
+        </UIActions>
       </div>
     )
   }
@@ -114,6 +154,10 @@ export class POIItemView extends React.PureComponent<
    * @return {undefined}
    */
   handleNameChange = (event: SyntheticInputEvent<HTMLInputElement>) => {
+    debug({
+      asd: event.currentTarget.value,
+      asd2: event.target.value,
+    })
     this.setState({
       fieldName: event.currentTarget.value,
     })
@@ -146,7 +190,7 @@ export class POIItemView extends React.PureComponent<
   }
 
   /**
-   * { function_description }
+   * POI form submit
    *
    * @return {undefined}
    */
@@ -159,5 +203,41 @@ export class POIItemView extends React.PureComponent<
       latitude: fieldLatitude,
       longitude: fieldLongitude,
     })
+  }
+
+  /**
+   * POI form delete confirm
+   *
+   * @return {undefined}
+   */
+  handlePOIFormDeleteConfirm = () => {
+    this.setState({
+      hasDeleteConfirm: true,
+    })
+  }
+
+  /**
+   * POI form delete cancel
+   *
+   * @return {undefined}
+   */
+  handlePOIFormDeleteCancel = () => {
+    this.setState({
+      hasDeleteConfirm: false,
+    })
+  }
+
+  /**
+   * POI form delete
+   *
+   * @return {undefined}
+   */
+  handlePOIFormDelete = () => {
+    const { id, onDelete } = this.props
+    const { hasDeleteConfirm } = this.state
+
+    if (hasDeleteConfirm) {
+      onDelete(id)
+    }
   }
 }

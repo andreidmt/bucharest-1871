@@ -1,4 +1,11 @@
 .form {
-  width: 400px;
-  padding: var(--distancer);
+  width: 340px;
+}
+
+.form-action--right {
+  float: right;
+}
+
+.form-action--right + .form-action--right {
+  margin-right: var(--distancer-small);
 }

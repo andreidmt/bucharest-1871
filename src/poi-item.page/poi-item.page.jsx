@@ -7,7 +7,7 @@ import { withRouter } from "react-router-dom"
 
 import { POIItemContainer } from "./poi-item.section/poi-item.container"
 
-type POIItemPagePropsType = {|
+type PropsType = {|
   match: {
     params: {
       id: string,
@@ -15,7 +15,7 @@ type POIItemPagePropsType = {|
   },
 |}
 
-class POIItemPage extends React.Component<POIItemPagePropsType> {
+class POIItemPage extends React.Component<PropsType> {
   /**
    * When called, it should examine this.props and this.state and return a
    * single React element. This element can be either a representation of a
