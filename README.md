@@ -61,7 +61,7 @@ npm run tdd
 
 ## Tech dept
 
-- [ ] Dont load router in UIGrid component
+- [x] Dont load router in UIGrid component
 - [ ] POIListPage and POIItemPage should have separate state list
 
 ## Changelog
