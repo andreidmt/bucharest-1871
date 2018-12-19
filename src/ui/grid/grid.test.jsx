@@ -4,34 +4,32 @@ import TestRenderer from "react-test-renderer"
 import { MemoryRouter } from "react-router"
 
 import { UIGrid } from "./grid"
+import { UIMarker } from "../marker/marker"
 
 test("UI Grid", t => {
-  const emptyGrid = TestRenderer.create(
+  const testRenderer = TestRenderer.create(
     <MemoryRouter>
-      <UIGrid markers={[]} mapURL="" width={100} height={100} />
+      <UIGrid
+        markers={[
+          {
+            id: "1",
+            label: "test",
+            left: 100,
+            top: 100,
+          },
+        ]}
+        mapURL=""
+        width={100}
+        height={100}
+      />
     </MemoryRouter>
-  ).toJSON()
+  )
+  const testInstance = testRenderer.root
 
-  t.deepEquals(
-    {
-      type: emptyGrid.type,
-      children: [
-        {
-          type: emptyGrid.children[0].type,
-          children: emptyGrid.children[0].children,
-        },
-      ],
-    },
-    {
-      type: "div",
-      children: [
-        {
-          type: "div",
-          children: null,
-        },
-      ],
-    },
-    "Render with default props"
+  t.equals(
+    testInstance.findAllByType(UIMarker).length,
+    1,
+    "Render one UIMarker for each POI"
   )
 
   t.end()

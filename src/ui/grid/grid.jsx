@@ -5,30 +5,31 @@ const debug = require("debug")("Bucharest1871:UIGrid")
 
 import * as React from "react"
 import cx from "classnames"
-import { withRouter } from "react-router-dom"
-import { throttle, map } from "@asd14/m"
-
-import { buildURL } from "../../core/router.helper"
+import { throttle, map, isEmpty } from "@asd14/m"
 
 import { UIDebug } from "../debug/debug"
 import { UIMarker } from "../marker/marker"
 
 import css from "./grid.css"
 
-type UIGridPropsType = {|
-  history: Object,
+type PropsType = {|
+  className?: string,
   markers: {
     id: string,
     name: string,
     left: number,
     top: number,
   }[],
+  markersSelectedId?: string,
   mapURL: string,
   width: number,
   height: number,
+  hasLabels?: boolean,
+  onMarkerClick?: Function,
+  onMapClick?: Function,
 |}
 
-type UIGridStateType = {
+type StateType = {
   screenX: number,
   screenY: number,
   startX: number,
@@ -38,7 +39,15 @@ type UIGridStateType = {
   isPanning: boolean,
 }
 
-class UIGrid extends React.Component<UIGridPropsType, UIGridStateType> {
+class UIGrid extends React.Component<PropsType, StateType> {
+  static defaultProps = {
+    className: undefined,
+    markersSelectedId: undefined,
+    hasLabels: false,
+    onMarkerClick: undefined,
+    onMapClick: undefined,
+  }
+
   state = {
     screenX: 0,
     screenY: 0,
@@ -65,7 +74,7 @@ class UIGrid extends React.Component<UIGridPropsType, UIGridStateType> {
    *
    * @param {Object}  props  The properties
    */
-  constructor(props: UIGridPropsType) {
+  constructor(props: PropsType) {
     super(props)
 
     this.handleThrottledDragMove = throttle(this.handleDragMove, {
@@ -84,12 +93,21 @@ class UIGrid extends React.Component<UIGridPropsType, UIGridStateType> {
    * @return {Component}
    */
   render = (): React.Node => {
-    const { markers, mapURL, width, height } = this.props
+    const {
+      className,
+      markers,
+      markersSelectedId,
+      mapURL,
+      width,
+      height,
+      hasLabels,
+    } = this.props
     const { offsetX, offsetY, screenX, screenY, isPanning } = this.state
 
     return (
       <div
         className={cx(css.grid, {
+          [className || ""]: !isEmpty(className),
           [css["grid--is-panning"]]: isPanning,
         })}
         style={{
@@ -97,6 +115,7 @@ class UIGrid extends React.Component<UIGridPropsType, UIGridStateType> {
           backgroundPositionX: offsetX,
           backgroundPositionY: offsetY,
         }}
+        onClick={this.handleMapClick}
         onMouseDown={this.handleDragStart}
         onMouseMove={this.handleThrottledDragMove}
         onMouseUp={this.handleDragEnd}>
@@ -112,16 +131,17 @@ class UIGrid extends React.Component<UIGridPropsType, UIGridStateType> {
             ({ id, label, left, top }, index): React.Node => (
               <UIMarker
                 key={`marker-${index}`}
-                id={id}
                 label={label}
                 left={left}
                 top={top}
+                isActive={id === markersSelectedId}
+                hasLabelVisible={hasLabels}
                 onClick={this.handleMarkerClick(id)}
               />
             )
           )(markers)}
         </div>
-        {process.env.NODE_ENV === "development" && (
+        {false && (
           <UIDebug
             dump={{
               offset: { X: offsetX, Y: offsetY },
@@ -140,14 +160,44 @@ class UIGrid extends React.Component<UIGridPropsType, UIGridStateType> {
     )
   }
 
-  handleMarkerClick = (markerId: string): Function => () => {
-    const { history } = this.props
+  handleMapClick = (event: SyntheticMouseEvent<HTMLDivElement>) => {
+    const { onMapClick } = this.props
+    const { offsetX, offsetY } = this.state
 
-    history.push(buildURL("pois:item", { id: markerId }))
+    if (onMapClick) {
+      onMapClick(
+        {
+          latitude: Math.abs(offsetX) + event.clientX,
+          longitude: Math.abs(offsetY) + event.clientY,
+        },
+        event
+      )
+    }
   }
 
   /**
-   * Enable panning flag and save current position of mouse
+   * Run parent onMarkerClick when marker is clicked
+   *
+   * @param {string} id  POI id
+   *
+   * @return {undefined}
+   */
+  handleMarkerClick = (id: string): Function => (
+    event: SyntheticMouseEvent<HTMLDivElement>
+  ) => {
+    const { onMarkerClick } = this.props
+
+    // dont allow markerclick to also trigger grid.click
+    event.stopPropagation()
+
+    if (onMarkerClick) {
+      onMarkerClick(id)
+    }
+  }
+
+  /**
+   * Enable panning flag and save current position of mouse when clicking on
+   * map
    *
    * @param  {Object}  event  The event synthetic mouse event html div element
    *
@@ -160,7 +210,7 @@ class UIGrid extends React.Component<UIGridPropsType, UIGridStateType> {
     const currentMouseY = event.clientY
 
     this.setState(
-      ({ offsetX, offsetY }: UIGridStateType): Object => ({
+      ({ offsetX, offsetY }: StateType): Object => ({
         startX: currentMouseX - offsetX,
         startY: currentMouseY - offsetY,
         isPanning: true,
@@ -190,13 +240,12 @@ class UIGrid extends React.Component<UIGridPropsType, UIGridStateType> {
       const offsetX = event.clientX - startX
       const offsetY = event.clientY - startY
 
-      /*
-       * > 0 goes beion top/left
-       *
-       */
+      const isLeftTooFarLeft = offsetX > 0
+      const isTopTooFarTop = offsetY > 0
+
       this.setState({
-        offsetX: offsetX > 0 ? 0 : offsetX,
-        offsetY: offsetY > 0 ? 0 : offsetY,
+        offsetX: isLeftTooFarLeft ? 0 : offsetX,
+        offsetY: isTopTooFarTop ? 0 : offsetY,
       })
     }
   }
@@ -217,6 +266,4 @@ class UIGrid extends React.Component<UIGridPropsType, UIGridStateType> {
   }
 }
 
-const routeredUIGrid = withRouter(UIGrid)
-
-export { routeredUIGrid as UIGrid }
+export { UIGrid }

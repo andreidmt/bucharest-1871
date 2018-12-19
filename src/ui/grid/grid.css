@@ -6,6 +6,8 @@
   bottom: 0;
   left: 0;
 
+  cursor: grab;
+
   background-color: transparent;
   background-repeat: no-repeat;
 }
