@@ -10,7 +10,7 @@ import { routerReducer } from "react-router-redux"
 import { getPath } from "./core/router.helper"
 import { Layout } from "./layout/layout"
 
-import { LayoutPOIList } from "./layout/layout.state"
+import { LayoutPOIList, LayoutSettingsList } from "./layout/layout.state"
 
 import { HomePage } from "./home.page/home.page"
 import { POIListPage } from "./poi-list.page/poi-list.page"
@@ -21,6 +21,7 @@ import "./index.css"
 const store = createStore(
   combineReducers({
     [LayoutPOIList.name]: LayoutPOIList.reducer,
+    [LayoutSettingsList.name]: LayoutSettingsList.reducer,
     router: routerReducer,
   })
 )
